@@ -9,14 +9,13 @@ var Dn = function () {
   this.scheduler = new ROT.Scheduler.Action();
   this.engine = new ROT.Engine(this.scheduler);
   this.levels = [];
-  this.currentLevel = -1;
   this.adventurer = {};
 };
 
 Dn.prototype.init = function () {
   'use strict';
-  this.adventurer = new DN.Adventurer();
-  this.moveDownstairs();
+  this.adventurer = new DN.Actor('adventurer');
+  this.adventurer.moveDownstairs();
   this.engine.start();
 };
 
@@ -33,16 +32,7 @@ Dn.prototype.drawUI = function () {
 
 Dn.prototype.getLevel = function () {
   'use strict';
-  return this.levels[this.currentLevel];
-};
-
-Dn.prototype.moveDownstairs = function () {
-  'use strict';
-  var x, y;
-  this.currentLevel += 1;
-  if (!this.levels[this.currentLevel]) {
-    this.levels.push(new DN.Level());
-  }
+  return this.levels[this.adventurer.currentLevel];
 };
 
 var DN = new Dn();

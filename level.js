@@ -4,6 +4,7 @@ DN.Level = function () {
   'use strict';
   var i;
   this.map = {};
+  this.actors = {};
   DN.digger.create(this.initMap.bind(this));
   this.rooms = DN.digger.getRooms();
   this.stairs = this.rooms[this.rooms.length - 1].getCenter();
@@ -16,16 +17,12 @@ DN.Level = function () {
     this.rooms[i].getDoors(this.initDoor.bind(this));
   }
   this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
-  DN.adventurer.levels[0] = {
-    explored: {},
-    fov: {}
-  };
-  DN.adventurer.level = DN.adventurer.levels[0];
   DN.adventurer.setXY(this.rooms[0].getCenter());
 };
 
 DN.Level.prototype.initMap = function (x, y, value) {
   'use strict';
+  var monster;
   if (!value) {
     this.map[x + ',' + y] = {
       x: x,
