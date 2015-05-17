@@ -5,12 +5,15 @@
   <title>Dungeons of Neverknown</title>
   <script src="rot.min.js"></script>
   <script src="game.js"></script>
+  <script src="adventurer.js"></script>
+  <script src="level.js"></script>
 </head>
 
-<body onload="document.body.appendChild(display.getContainer());">
-
-
-
+<body>
+  <script>
+    DN.init();
+    document.body.appendChild(DN.display.getContainer())
+  </script>
 </body>
 
 </html>
