@@ -9,13 +9,14 @@ var Dn = function () {
   this.scheduler = new ROT.Scheduler.Action();
   this.engine = new ROT.Engine(this.scheduler);
   this.levels = [];
+  this.currentLevel = -1;
+  this.adventurer = {};
 };
 
 Dn.prototype.init = function () {
   'use strict';
-  this.levels[0] = new DN.Level();
-  this.level = this.levels[0];
-  this.scheduler.add(this.level.adventurer, true);
+  this.adventurer = new DN.Adventurer();
+  this.moveDownstairs();
   this.engine.start();
 };
 
@@ -28,6 +29,20 @@ Dn.prototype.drawUI = function () {
   this.display.drawText(62, 4, '/ opened door');
   this.display.drawText(62, 5, '# wall');
   this.display.drawText(62, 6, '> stairs');
+};
+
+Dn.prototype.getLevel = function () {
+  'use strict';
+  return this.levels[this.currentLevel];
+};
+
+Dn.prototype.moveDownstairs = function () {
+  'use strict';
+  var x, y;
+  this.currentLevel += 1;
+  if (!this.levels[this.currentLevel]) {
+    this.levels.push(new DN.Level());
+  }
 };
 
 var DN = new Dn();

@@ -1,29 +1,38 @@
 /*global ROT, DN*/
 
-DN.Adventurer = function (xy) {
+DN.Adventurer = function () {
+  'use strict';
+  this.x = 0;
+  this.y = 0;
+  this.range = 10;
+  this.levels = [];
+  this.level = null;
+  DN.scheduler.add(this, true);
+  window.addEventListener('keypress', this.handleEvenet.bind(this));
+};
+
+DN.Adventurer.prototype.setXY = function (xy) {
   'use strict';
   this.x = xy[0];
   this.y = xy[1];
-  this.range = 10;
-  this.levels = [];
-  this.levels[0] = {
-    explored: {},
-    fov: {}
-  };
-  this.level = this.levels[0];
-  window.addEventListener('keypress', this.handleEvenet.bind(this));
 };
 
 DN.Adventurer.prototype.act = function () {
   'use strict';
   this.level.fov = {};
-  DN.level.fov.compute(this.x, this.y, this.range, this.updateFOV.bind(this));
+  DN.getLevel().fov.compute(
+    this.x,
+    this.y,
+    this.range,
+    this.updateFOV.bind(this)
+  );
   this.draw();
   DN.engine.lock();
 };
 
 DN.Adventurer.prototype.draw = function () {
   'use strict';
+  DN.display.clear();
   this.drawExplored();
   this.drawFOV();
   DN.drawUI();
@@ -56,7 +65,7 @@ DN.Adventurer.prototype.updateFOV = function (x, y) {
   this.level.fov[x + ',' + y] = this.level.explored[x + ',' + y] = {
     x: x,
     y: y,
-    char: DN.level.getChar(x, y)
+    char: DN.getLevel().getChar(x, y)
   };
 };
 
@@ -95,13 +104,14 @@ DN.Adventurer.prototype.handleEvenet = function (e) {
     newy -= 1;
     break;
   case 13:
-    break;
+    DN.moveDownstairs();
+    DN.engine.unlock();
+    return;
   }
   if (this.level.fov[(this.x + newx) + ',' + (this.y + newy)].char !== '#') {
-    this.x += newx;
-    this.y += newy;
+    this.setXY([this.x + newx, this.y + newy]);
     if (this.level.fov[this.x + ',' + this.y].char === '+') {
-      DN.level.setChar(this.x, this.y, '/');
+      DN.getLevel().setChar(this.x, this.y, '/');
     }
     DN.engine.unlock();
   }

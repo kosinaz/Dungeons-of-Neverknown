@@ -6,7 +6,6 @@ DN.Level = function () {
   this.map = {};
   DN.digger.create(this.initMap.bind(this));
   this.rooms = DN.digger.getRooms();
-  this.adventurer = new DN.Adventurer(this.rooms[0].getCenter());
   this.stairs = this.rooms[this.rooms.length - 1].getCenter();
   this.map[this.stairs[0] + ',' + this.stairs[1]] = {
     x: this.stairs[0],
@@ -17,6 +16,12 @@ DN.Level = function () {
     this.rooms[i].getDoors(this.initDoor.bind(this));
   }
   this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
+  DN.adventurer.levels[0] = {
+    explored: {},
+    fov: {}
+  };
+  DN.adventurer.level = DN.adventurer.levels[0];
+  DN.adventurer.setXY(this.rooms[0].getCenter());
 };
 
 DN.Level.prototype.initMap = function (x, y, value) {
@@ -45,7 +50,7 @@ DN.Level.prototype.isTransparent = function (x, y) {
 
 DN.Level.prototype.getChar = function (x, y) {
   'use strict';
-  if (this.adventurer.x === x && this.adventurer.y === y) {
+  if (DN.adventurer.x === x && DN.adventurer.y === y) {
     return '@';
   }
   if (this.map.hasOwnProperty(x + ',' + y)) {
