@@ -4,7 +4,7 @@ DN.Level = function () {
   'use strict';
   var i;
   this.map = {};
-  this.actors = {};
+  this.monsters = [];
   DN.digger.create(this.initMap.bind(this));
   this.rooms = DN.digger.getRooms();
   this.stairs = this.rooms[this.rooms.length - 1].getCenter();
@@ -17,18 +17,19 @@ DN.Level = function () {
     this.rooms[i].getDoors(this.initDoor.bind(this));
   }
   this.fov = new ROT.FOV.PreciseShadowcasting(this.isTransparent.bind(this));
-  DN.adventurer.setXY(this.rooms[0].getCenter());
 };
 
 DN.Level.prototype.initMap = function (x, y, value) {
   'use strict';
-  var monster;
   if (!value) {
     this.map[x + ',' + y] = {
       x: x,
       y: y,
       char: '.'
     };
+    if (ROT.RNG.getPercentage() === 1) {
+      this.monsters.push(new DN.Actor('A', x, y));
+    }
   }
 };
 
@@ -47,8 +48,14 @@ DN.Level.prototype.isTransparent = function (x, y) {
 
 DN.Level.prototype.getChar = function (x, y) {
   'use strict';
+  var i;
   if (DN.adventurer.x === x && DN.adventurer.y === y) {
     return '@';
+  }
+  for (i = 0; i < this.monsters.length; i += 1) {
+    if (this.monsters[i].x === x && this.monsters[i].y === y) {
+      return this.monsters[i].char;
+    }
   }
   if (this.map.hasOwnProperty(x + ',' + y)) {
     return this.map[x + ',' + y].char;

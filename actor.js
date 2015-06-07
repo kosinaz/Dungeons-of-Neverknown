@@ -1,15 +1,18 @@
 /*global ROT, DN*/
 
-DN.Actor = function (type) {
+DN.Actor = function (char, x, y, currentLevel) {
   'use strict';
-  this.type = type;
-  this.x = 0;
-  this.y = 0;
+  this.char = char || '@';
+  this.x = x || 30;
+  this.y = y || 10;
   this.r = 10;
   this.exploredLevels = [];
-  this.currentLevel = -1;
+  this.currentLevel = currentLevel || 0;
+  this.initExplored();
   DN.scheduler.add(this, true);
-  window.addEventListener('keypress', this.handleEvenet.bind(this));
+  if (this.char === '@') {
+    window.addEventListener('keypress', this.handleEvenet.bind(this));
+  }
 };
 
 DN.Actor.prototype.setXY = function (xy) {
@@ -22,7 +25,7 @@ DN.Actor.prototype.act = function () {
   'use strict';
   this.initFOV();
   DN.getLevel().fov.compute(this.x, this.y, this.r, this.updateFOV.bind(this));
-  if (this.type === 'adventurer') {
+  if (this.char === '@') {
     this.draw();
     DN.engine.lock();
   }
@@ -146,6 +149,8 @@ DN.Actor.prototype.isChar = function (x, y, char) {
 DN.Actor.prototype.moveDownstairs = function () {
   'use strict';
   var x, y;
+  this.x = 30;
+  this.y = 10;
   this.currentLevel += 1;
   if (!DN.levels[this.currentLevel]) {
     DN.levels.push(new DN.Level());

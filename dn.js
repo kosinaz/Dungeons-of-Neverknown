@@ -14,8 +14,8 @@ var Dn = function () {
 
 Dn.prototype.init = function () {
   'use strict';
-  this.adventurer = new DN.Actor('adventurer');
-  this.adventurer.moveDownstairs();
+  this.adventurer = new DN.Actor();
+  DN.levels.push(new DN.Level());
   this.engine.start();
 };
 
