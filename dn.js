@@ -6,7 +6,7 @@ var Dn = function () {
     fontFamily: 'Courier'
   });
   this.digger = new ROT.Map.Digger(60, 20);
-  this.scheduler = new ROT.Scheduler.Action();
+  this.scheduler = new ROT.Scheduler.Speed();
   this.engine = new ROT.Engine(this.scheduler);
   this.levels = [];
   this.adventurer = {};
@@ -32,7 +32,7 @@ Dn.prototype.drawUI = function () {
 
 Dn.prototype.getLevel = function () {
   'use strict';
-  return this.levels[this.adventurer.currentLevel];
+  return this.levels[this.adventurer.z];
 };
 
 var DN = new Dn();

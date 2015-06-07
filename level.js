@@ -28,7 +28,10 @@ DN.Level.prototype.initMap = function (x, y, value) {
       char: '.'
     };
     if (ROT.RNG.getPercentage() === 1) {
-      this.monsters.push(new DN.Actor('A', x, y));
+      this.monsters.push(
+        new DN.Actor(String.fromCharCode(this.monsters.length + 65),
+                     x, y, 0, 10, 6)
+      );
     }
   }
 };
