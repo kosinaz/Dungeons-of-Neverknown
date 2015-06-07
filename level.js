@@ -46,6 +46,11 @@ DN.Level.prototype.isTransparent = function (x, y) {
   return false;
 };
 
+DN.Level.prototype.isPassable = function (x, y) {
+  'use strict';
+  return this.map.hasOwnProperty(x + ',' + y);
+};
+
 DN.Level.prototype.getChar = function (x, y) {
   'use strict';
   var i;
@@ -57,6 +62,14 @@ DN.Level.prototype.getChar = function (x, y) {
       return this.monsters[i].char;
     }
   }
+  if (this.map.hasOwnProperty(x + ',' + y)) {
+    return this.map[x + ',' + y].char;
+  }
+  return '#';
+};
+
+DN.Level.prototype.getTerrain = function (x, y) {
+  'use strict';
   if (this.map.hasOwnProperty(x + ',' + y)) {
     return this.map[x + ',' + y].char;
   }

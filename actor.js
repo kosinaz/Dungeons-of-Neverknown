@@ -9,6 +9,9 @@ DN.Actor = function (char, x, y, currentLevel) {
   this.exploredLevels = [];
   this.currentLevel = currentLevel || 0;
   this.initExplored();
+  this.targetX = this.x;
+  this.targetY = this.y;
+  this.path = [];
   DN.scheduler.add(this, true);
   if (this.char === '@') {
     window.addEventListener('keypress', this.handleEvenet.bind(this));
@@ -28,7 +31,24 @@ DN.Actor.prototype.act = function () {
   if (this.char === '@') {
     this.draw();
     DN.engine.lock();
+  } else if (this.targetX !== this.x || this.targetY !== this.y) {
+    this.path = [];
+    new ROT.Path.AStar(
+      this.targetX,
+      this.targetY,
+      DN.getLevel().isPassable.bind(DN.getLevel())
+    ).compute(
+      this.x,
+      this.y,
+      this.updatePath.bind(this)
+    );
+    this.setXY(this.path[1]);
   }
+};
+
+DN.Actor.prototype.updatePath = function (x, y) {
+  'use strict';
+  this.path.push([x, y]);
 };
 
 DN.Actor.prototype.initFOV = function () {
@@ -86,11 +106,20 @@ DN.Actor.prototype.drawFOV = function () {
 
 DN.Actor.prototype.updateFOV = function (x, y) {
   'use strict';
-  this.getFOV()[x + ',' + y] = this.getExplored()[x + ',' + y] = {
+  this.getFOV()[x + ',' + y] = {
     x: x,
     y: y,
     char: DN.getLevel().getChar(x, y)
   };
+  this.getExplored()[x + ',' + y] = {
+    x: x,
+    y: y,
+    char: DN.getLevel().getTerrain(x, y)
+  };
+  if (this.char !== '@' && this.getFOV()[x + ',' + y].char === '@') {
+    this.targetX = x;
+    this.targetY = y;
+  }
 };
 
 DN.Actor.prototype.handleEvenet = function (e) {
