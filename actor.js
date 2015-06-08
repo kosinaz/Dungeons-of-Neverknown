@@ -1,6 +1,6 @@
 /*global ROT, DN*/
 
-DN.Actor = function (char, x, y, z, range, speed) {
+DN.Actor = function (char, x, y, z, range, speed, health) {
   'use strict';
   this.char = char || '@';
   this.x = x || 30;
@@ -8,6 +8,7 @@ DN.Actor = function (char, x, y, z, range, speed) {
   this.z = z || 0;
   this.range = range || 10;
   this.speed = speed || 10;
+  this.currentHealth = this.maxHealth = health || 10;
   this.targetX = this.x;
   this.targetY = this.y;
   this.exploredLevels = [];
@@ -155,6 +156,12 @@ DN.Actor.prototype.handleEvenet = function (e) {
   case ROT.VK_4:
     newx -= 1;
     break;
+  case ROT.VK_5:
+    if (DN.getLevel().getTerrain(this.x, this.y) === '>') {
+      this.moveDownstairs();
+      DN.engine.unlock();
+    }
+    return;
   case ROT.VK_6:
     newx += 1;
     break;
@@ -169,12 +176,6 @@ DN.Actor.prototype.handleEvenet = function (e) {
     newx += 1;
     newy -= 1;
     break;
-  case 13:
-    if (DN.getLevel().getTerrain(this.x, this.y) === '>') {
-      this.moveDownstairs();
-      DN.engine.unlock();
-    }
-    return;
   }
   if (!this.isChar((this.x + newx), (this.y + newy), '#')) {
     this.setXY([this.x + newx, this.y + newy]);
