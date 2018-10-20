@@ -1,0 +1,40 @@
+Azure #007FFF
+Black #000000
+Crimson #DC143C
+Diamond #B9F2FF
+Emerald #50C878
+Flame #E25822
+Golden #FFD700
+Hazelnut #D4893B
+Ivory #FFFFF0
+Jade #00A86B
+Kiwi #7F9A65
+Lava #CF1020
+Maroon #800000
+Neon #39FF14
+Orange #FFA500
+Pearl #EAE0C8
+Quartz #51484F
+Red #FF0000
+Silver #C0C0C0
+Tan #D2B48C
+Umber #635147
+Violet #8F00FF
+White #FFFFFF
+Xanthic #EEED09
+Yellow #FFFF00
+Zaffre #0014A8
+-skinned
+-haired
+-feathered
+-scaled
+-shelled
+
+claws
+hoofs
+spikes
+horns
+tentacles
+wings
+fangs
+tusks
