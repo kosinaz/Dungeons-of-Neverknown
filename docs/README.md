@@ -1,8 +1,6 @@
-# what about now
+# Dungeons of Neverknown
 
-[I'm an inline-style link](about.html)
-
-Posts: 
+Posts:
 
 {% for post in site.posts %}
 [{{ post.title }}]({{ post.url }})
