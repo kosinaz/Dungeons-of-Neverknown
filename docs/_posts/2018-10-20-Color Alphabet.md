@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Color Alphabet
+excerpt: I decided to identify every character in the game based on their primary color. Unfortunately, some of the common color names start with the same character so in those cases I reserved the character for the most common color. On the other hand, for some of the characters, I couldn't come up with a good color.
 ---
-[Dungeons of Neverknown](/) >
+[Dungeons of Neverknown](https://kosinaz.github.io/Dungeons-of-Neverknown/) >
 # Color Alphabet
 
 I decided to identify every character in the game based on their primary color. Unfortunately, some of the common color names start with the same character so in those cases I reserved the character for the most common color. On the other hand, for some of the characters, I couldn't come up with a good color.
