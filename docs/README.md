@@ -4,7 +4,7 @@
 
 ***
 
-## [{{ post.title }}](./{{ post.url }})
+## {% avatar kosinaz %} [{{ post.title }}](./{{ post.url }})
 
 {{ post.date | date_to_string }}
 
