@@ -4,3 +4,4 @@ show_downloads: true
 plugins:
    - jekyll-sitemap
    - jekyll-feed
+   - jekyll-avatar
