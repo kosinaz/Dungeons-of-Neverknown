@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Color Alphabet
-date: 2018-10-20 19:30
 ---
 # Color Alphabet
 
