@@ -7,7 +7,7 @@ date: 2018-10-20 19:30
 
 Azure #007FFF
 Black #000000
-Crimson #DC143C
+Cyan #00FFFF
 D
 E
 F
@@ -17,7 +17,7 @@ I
 J
 K
 L
-M
+Magenta #FF00FF
 N
 Orange #FFA500
 Pink #FFC0CB
@@ -28,6 +28,6 @@ Teal #FFC0CB
 U
 Violet #8F00FF
 White #FFFFFF
-Xanthic #EEED09
+X
 Yellow #FFFF00
 Z
